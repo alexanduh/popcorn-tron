@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="//cdn.jsdelivr.net/npm/phaser@3.0.0/dist/phaser.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.1.1/dist/phaser.js"></script>
 </head>
 <body>
 
-<script>
+<script type="text/javascript">
+
 var config = {
     type: Phaser.AUTO,
     width: 800,
@@ -13,38 +14,39 @@ var config = {
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 200 }
+            debug: false
         }
     },
     scene: {
         preload: preload,
         create: create,
         update: update,
-        render: render,
+        render: render
     }
 };
-
+    
 var game = new Phaser.Game(config);
+    
+var arrow;
+    
+function preload() {
 
-function preload ()
-{
-    this.load.image('arrow', 'sprites/arrow.png');
-}
-
-function create ()
-{
-    this.add.image(400, 300, 'arrow');
+    this.load.image('phaser', 'arrow.png');
 
 }
 
-function update()
-{
-    
+function create() {
+
+    sprite = this.physics.add.sprite(400, 300, 'phaser');
+
 }
-    
-function render()
-{
-    
+
+function update() {
+
+}
+
+function render() {
+
 }
     
 </script>
