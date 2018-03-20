@@ -36,13 +36,25 @@ function preload() {
 }
 
 function create() {
-
+    
+    cursors = this.input.keyboard.createCursorKeys();
     sprite = this.physics.add.sprite(400, 300, 'phaser');
+    this.physics.velocityFromAngle(sprite.angle, 50, sprite.body.velocity);
+    
 
 }
 
 function update() {
+    if (cursors.left.isDown)
+    {
+        player.angle += 90;
 
+    }
+    else if (cursors.right.isDown)
+    {
+        player.angle -= 90;
+
+    }
 }
 
 function render() {
