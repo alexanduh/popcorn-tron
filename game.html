@@ -38,29 +38,51 @@ function preload() {
 function create() {
     
     cursors = this.input.keyboard.createCursorKeys();
-    sprite = this.physics.add.sprite(400, 300, 'phaser');
-    this.physics.velocityFromAngle(sprite.angle, 50, sprite.body.velocity);
     
+    sprite = this.physics.add.sprite(400, 300, 'phaser');
+    this.physics.velocityFromAngle(sprite.angle, 100, sprite.body.velocity);
+    
+    //cursors.left.onDown(turnLeft, this);
 
 }
 
 function update() {
-    if (cursors.left.isDown)
-    {
-        sprite.angle += 90;
-
+    if (cursors.left.isDown) {
+        if(sprite.angle != 0) {
+            sprite.angle = 180;
+            this.physics.velocityFromAngle(sprite.angle, 100, sprite.body.velocity);
+        }
     }
-    else if (cursors.right.isDown)
-    {
-        sprite.angle -= 90;
-
+    else if (cursors.right.isDown) {
+        if(sprite.angle != -180) {
+            sprite.angle = 0;
+            this.physics.velocityFromAngle(sprite.angle, 100, sprite.body.velocity);
+        }
+    }
+    else if (cursors.up.isDown) {
+        if(sprite.angle != 90) {
+            sprite.angle = -90;
+            this.physics.velocityFromAngle(sprite.angle, 100, sprite.body.velocity);
+        }
+    }
+    else if (cursors.down.isDown) {
+        if(sprite.angle != -90) {
+            sprite.angle = 90;
+            this.physics.velocityFromAngle(sprite.angle, 100, sprite.body.velocity);
+        }
     }
 }
 
 function render() {
 
 }
-    
+
+function turnLeft() {
+        sprite.angle += 90;
+        
+        this.physics.velocityFromAngle(sprite.angle, 50, sprite.body.velocity);
+
+}
 </script>
 
 </body>
