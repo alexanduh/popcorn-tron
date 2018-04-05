@@ -31,22 +31,28 @@ var arrow;
     
 function preload() {
 
-    this.load.image('phaser', 'tron.light.cycle.red.png');
+    this.load.image('red', 'tron.light.cycle.red.png');
+    this.load.image('blue', 'tron.light.cycle.blue.png');
 
 }
 
 function create() {
+    //bitmapData
     
     //inputs
     cursors = this.input.keyboard.createCursorKeys();
     keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+    keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+    keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+    keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     
-    
-    sprite1 = this.physics.add.sprite(800, 300, 'phaser');
+    sprite1 = this.physics.add.sprite(800, 300, 'red');
+    sprite1.setDisplaySize(30, 30);
     sprite1.angle = -180;
     this.physics.velocityFromAngle(sprite1.angle, 100, sprite1.body.velocity);
     
-    sprite2 = this.physics.add.sprite(100, 300, 'phaser');
+    sprite2 = this.physics.add.sprite(100, 300, 'blue');
+    sprite2.setDisplaySize(30, 30);
     this.physics.velocityFromAngle(sprite2.angle, 100, sprite2.body.velocity);
 
 }
@@ -79,8 +85,26 @@ function update() {
     
     //player 2 inputs
     if (keyW.isDown) {
+        if(sprite2.angle != 90) {
+            sprite2.angle = -90;
+            this.physics.velocityFromAngle(sprite2.angle, 100, sprite2.body.velocity);
+        }
+    }
+    if (keyA.isDown) {
         if(sprite2.angle != 0) {
             sprite2.angle = 180;
+            this.physics.velocityFromAngle(sprite2.angle, 100, sprite2.body.velocity);
+        }
+    }
+    if (keyS.isDown) {
+        if(sprite2.angle != -90) {
+            sprite2.angle = 90;
+            this.physics.velocityFromAngle(sprite2.angle, 100, sprite2.body.velocity);
+        }
+    }
+    if (keyD.isDown) {
+        if(sprite2.angle != -180) {
+            sprite2.angle = 0;
             this.physics.velocityFromAngle(sprite2.angle, 100, sprite2.body.velocity);
         }
     }
@@ -90,12 +114,6 @@ function render() {
 
 }
 
-function turnLeft() {
-        sprite1.angle += 90;
-        
-        this.physics.velocityFromAngle(sprite1.angle, 50, sprite1.body.velocity);
-
-}
 </script>
 
 </body>
