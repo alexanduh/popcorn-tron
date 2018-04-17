@@ -40,10 +40,9 @@ function create() {
     //bitmapData
     
     //inputs
-    cursors = this.input.keyboard.createCursorKeys();
-    keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+    keyJ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J);
+    keyL = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.L);
     keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-    keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     
     sprite1 = this.physics.add.sprite(800, 300, 'red');
@@ -59,16 +58,16 @@ function create() {
 
 function update() {
     
-    if (cursors.left._justDown) {
+    if (keyJ._justDown) {
         sprite1.angle -= 90
         this.physics.velocityFromAngle(sprite1.angle, 100, sprite1.body.velocity);
-        cursors.left._justDown = false;
+        keyJ._justDown = false;
         }
 
-    if (cursors.right._justDown) {
+    if (keyL._justDown) {
         sprite1.angle += 90
         this.physics.velocityFromAngle(sprite1.angle, 100, sprite1.body.velocity);
-        cursors.right._justDown = false;
+        keyL._justDown = false;
         }
 
     //player 2 inputs
