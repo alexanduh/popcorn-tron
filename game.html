@@ -58,57 +58,33 @@ function create() {
 }
 
 function update() {
-    if (cursors.left.isDown) {
-        if(sprite1.angle != 0) {
-            sprite1.angle = 180;
-            this.physics.velocityFromAngle(sprite1.angle, 100, sprite1.body.velocity);
-        }
-    }
-    else if (cursors.right.isDown) {
-        if(sprite1.angle != -180) {
-            sprite1.angle = 0;
-            this.physics.velocityFromAngle(sprite1.angle, 100, sprite1.body.velocity);
-        }
-    }
-    else if (cursors.up.isDown) {
-        if(sprite1.angle != 90) {
-            sprite1.angle = -90;
-            this.physics.velocityFromAngle(sprite1.angle, 100, sprite1.body.velocity);
-        }
-    }
-    else if (cursors.down.isDown) {
-        if(sprite1.angle != -90) {
-            sprite1.angle = 90;
-            this.physics.velocityFromAngle(sprite1.angle, 100, sprite1.body.velocity);
-        }
-    }
     
+    if (cursors.left._justDown) {
+        sprite1.angle -= 90
+        this.physics.velocityFromAngle(sprite1.angle, 100, sprite1.body.velocity);
+        cursors.left._justDown = false;
+        }
+
+    if (cursors.right._justDown) {
+        sprite1.angle += 90
+        this.physics.velocityFromAngle(sprite1.angle, 100, sprite1.body.velocity);
+        cursors.right._justDown = false;
+        }
+
     //player 2 inputs
-    if (keyW.isDown) {
-        if(sprite2.angle != 90) {
-            sprite2.angle = -90;
-            this.physics.velocityFromAngle(sprite2.angle, 100, sprite2.body.velocity);
+    if (keyA._justDown) {
+        sprite2.angle -= 90;
+        this.physics.velocityFromAngle(sprite2.angle, 100, sprite2.body.velocity);
+        keyA._justDown = false;
         }
-    }
-    if (keyA.isDown) {
-        if(sprite2.angle != 0) {
-            sprite2.angle = 180;
-            this.physics.velocityFromAngle(sprite2.angle, 100, sprite2.body.velocity);
+
+    if (keyD._justDown) {
+        sprite2.angle += 90
+        this.physics.velocityFromAngle(sprite2.angle, 100, sprite2.body.velocity);
+        keyD._justDown = false;
         }
-    }
-    if (keyS.isDown) {
-        if(sprite2.angle != -90) {
-            sprite2.angle = 90;
-            this.physics.velocityFromAngle(sprite2.angle, 100, sprite2.body.velocity);
-        }
-    }
-    if (keyD.isDown) {
-        if(sprite2.angle != -180) {
-            sprite2.angle = 0;
-            this.physics.velocityFromAngle(sprite2.angle, 100, sprite2.body.velocity);
-        }
-    }
 }
+
 
 function render() {
 
