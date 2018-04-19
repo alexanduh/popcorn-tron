@@ -34,12 +34,16 @@ var arrow;
     
 function preload() {
     
+    this.load.image('background', 'arena.png');
     this.load.image('red', 'tron.light.cycle.red.png');
     this.load.image('blue', 'tron.light.cycle.blue.png');
-
+    
 }
 
 function create() {
+    
+    background = this.add.image ( 500, 500, 'background');
+    
     //bitmapData
     
     //inputs
