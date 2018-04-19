@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="//cdn.jsdelivr.net/npm/phaser@3.3.0/dist/phaser.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.3.0/dist/phaser.js"></script>  
 </head>
 <body>
 
+
 <script type="text/javascript">
+
 
 var config = {
     type: Phaser.AUTO,
@@ -22,6 +24,7 @@ var config = {
         create: create,
         update: update,
         render: render
+        
     }
 };
     
@@ -30,7 +33,7 @@ var game = new Phaser.Game(config);
 var arrow;
     
 function preload() {
-
+    
     this.load.image('red', 'tron.light.cycle.red.png');
     this.load.image('blue', 'tron.light.cycle.blue.png');
 
@@ -55,6 +58,7 @@ function create() {
     sprite2.setDisplaySize(30, 30);
     this.physics.velocityFromAngle(sprite2.angle, 100, sprite2.body.velocity);
 
+         
 }
 
 function update() {
