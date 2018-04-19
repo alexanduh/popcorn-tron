@@ -24,15 +24,19 @@ var config = {
         render: render
     }
 };
-    
+
 var game = new Phaser.Game(config);
-    
+
+var blue_trail;
+var red_trail;
 var arrow;
     
 function preload() {
 
-    this.load.image('red', 'tron.light.cycle.red.png');
-    this.load.image('blue', 'tron.light.cycle.blue.png');
+    this.load.image('red', 'assets/tron.light.cycle.red.png');
+    this.load.image('blue', 'assets/tron.light.cycle.blue.png');
+    this.load.image('blue_trail', 'assets/blue_trail.png' );
+    this.load.image('red_trail', 'assets/red_trail.png' );
 
 }
 
