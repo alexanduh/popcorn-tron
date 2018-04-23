@@ -36,7 +36,7 @@ var arrow;
     
 function preload() {
 
-    this.load.image('background', 'arena.png');
+    this.load.image('background', 'assets/arena.png');
     this.load.image('red', 'assets/tron.light.cycle.red.png');
     this.load.image('blue', 'assets/tron.light.cycle.blue.png');
     this.load.image('blue_trail', 'assets/blue_trail.png' );
@@ -65,6 +65,19 @@ function create() {
     sprite2.setDisplaySize(30, 30);
     this.physics.velocityFromAngle(sprite2.angle, 100, sprite2.body.velocity);
 
+    //blue trail
+    blue_trail = this.add.particles('blue_trail').createEmitter({
+        x: 400,
+        y: 300,
+        //speed: { min: -100, max: 100 },
+        //angle: { min: -120, max: -60 },
+        scale: { start: 0.02, end: 0.02 },
+        //alpha: { start: 1, end: 0, ease: 'Expo.easeIn' },
+        blendMode: 'ADD',
+        //gravityY: 500,
+        lifespan: 1000
+    });
+    blue_trail.reserve(1000);
          
 }
 
