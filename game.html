@@ -67,17 +67,21 @@ function create() {
 
     //blue trail
     blue_trail = this.add.particles('blue_trail').createEmitter({
-        x: 400,
-        y: 300,
-        //speed: { min: -100, max: 100 },
-        //angle: { min: -120, max: -60 },
+        x: sprite2.x,
+        y: sprite2.y,
         scale: { start: 0.02, end: 0.02 },
-        //alpha: { start: 1, end: 0, ease: 'Expo.easeIn' },
         blendMode: 'ADD',
-        //gravityY: 500,
-        lifespan: 1000
+        lifespan: 50000
     });
-    blue_trail.reserve(1000);
+
+    //red trail
+    red_trail = this.add.particles('red_trail').createEmitter({
+        x: sprite1.x,
+        y: sprite1.y,
+        scale: { start: 0.02, end: 0.02 },
+        blendMode: 'ADD',
+        lifespan: 50000
+    });
          
 }
 
@@ -107,8 +111,14 @@ function update() {
         this.physics.velocityFromAngle(sprite2.angle, 100, sprite2.body.velocity);
         keyD._justDown = false;
         }
-}
+    
+    //trail update
+    blue_trail.setPosition(sprite2.x, sprite2.y);
+    red_trail.setPosition(sprite1.x, sprite1.y);
 
+}
+    
+    
 
 function render() {
 
