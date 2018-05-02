@@ -37,8 +37,8 @@ var arrow;
 function preload() {
 
     this.load.image('background', 'assets/arena.png');
-    this.load.image('red', 'assets/tron.light.cycle.red.resized.png');
-    this.load.image('blue', 'assets/tron.light.cycle.blue.resized.png');
+    this.load.image('red', 'assets/tron.light.cycle.red.png');
+    this.load.image('blue', 'assets/tron.light.cycle.blue.png');
     this.load.image('blue_trail-particle', 'assets/blue_trail.png' );
     this.load.image('red_trail-particle', 'assets/red_trail.png' );
 
@@ -57,18 +57,16 @@ function create() {
     keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     
-    sprite1 = this.physics.add.sprite(700, 300, 'red');
-    sprite1.setDisplaySize(30, 15);
+    sprite1 = this.physics.add.sprite(800, 300, 'red');
+    sprite1.setDisplaySize(30, 30);
     sprite1.angle = -180;
     this.physics.velocityFromAngle(sprite1.angle, 100, sprite1.body.velocity);
     sprite1.setCollideWorldBounds(true);
     
-    sprite2 = this.physics.add.sprite(100, 300, 'blue');
-    sprite2.setDisplaySize(30, 15);
+    sprite2 = this.physics.add.sprite(0, 300, 'blue');
+    sprite2.setDisplaySize(30, 30);
     this.physics.velocityFromAngle(sprite2.angle, 100, sprite2.body.velocity);
     sprite2.setCollideWorldBounds(true);
-
-    this.physics.add.collider(sprite1, sprite2);
     
     //blue trail
     blue_trail = this.add.particles('blue_trail-particle').createEmitter({
@@ -76,8 +74,11 @@ function create() {
         y: sprite2.y,
         scale: { start: 0.02, end: 0.02 },
         blendMode: 'ADD',
-        maxParticles: 0,
-        lifespan: 50000
+        collideBottom: true,
+        collideLeft: true,
+        collideRight: true,
+        collideTop: true,
+        lifespan: 100000
     });
 
     //red trail
@@ -86,13 +87,15 @@ function create() {
         y: sprite1.y,
         scale: { start: 0.02, end: 0.02 },
         blendMode: 'ADD',
-        maxParticles: 0,
-        lifespan: 50000
+        collideBottom: true,
+        collideLeft: true,
+        collideRight: true,
+        collideTop: true,
+        lifespan: 100000
     });
-    
-    //collisions
-    this.physics.add.collider(sprite1, sprite2, change, null, this);
          
+    this.physics.add.collider(sprite1, sprite2, change, null, this);
+    
 }
 
 function update() {
@@ -128,17 +131,14 @@ function update() {
 
 }
 
-function render() {
-
-}
-    
 function change() {
 
     this.add.text(50, 50, 'Bang! You collided.');
 
 }
-    
+function render() {
 
+}
 
 </script>
 
