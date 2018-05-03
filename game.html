@@ -33,6 +33,10 @@ var game = new Phaser.Game(config);
 var blue_trail;
 var red_trail;
 var arrow;
+var blue_score;
+var blue_score_text;
+var red_score;
+var red_score_text;
     
 function preload() {
 
@@ -70,6 +74,12 @@ function create() {
 
     this.physics.add.collider(sprite1, sprite2);
     
+    //score
+    blue_score = 0;
+    blue_score_text = this.add.text(50, 50, blue_score);
+    red_score = 0;
+    red_score_text = this.add.text(50, 500, red_score);
+    
     //blue trail
     blue_trail = this.add.particles('blue_trail-particle').createEmitter({
         x: sprite2.x,
@@ -97,13 +107,22 @@ function create() {
 
 function update() {
     
+    //world bound check
+    if(sprite1.checkWorldBounds()) {
+        red_score++;
+        red_score_text.setText(red_score);
+    }
+    
     if (keyJ._justDown) {
+        blue_score++;
+        blue_score_text.setText(blue_score);
         sprite1.angle -= 90
         this.physics.velocityFromAngle(sprite1.angle, 100, sprite1.body.velocity);
         keyJ._justDown = false;
         }
 
     if (keyL._justDown) {
+        blue_score++
         sprite1.angle += 90
         this.physics.velocityFromAngle(sprite1.angle, 100, sprite1.body.velocity);
         keyL._justDown = false;
@@ -134,7 +153,6 @@ function render() {
     
 function change() {
 
-    this.add.text(50, 50, 'Bang! You collided.');
 
 }
     
