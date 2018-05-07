@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="//cdn.jsdelivr.net/npm/phaser@3.3.0/dist/phaser.js"></script>  
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.6.0/dist/phaser.js"></script>  
 </head>
 <body>
 
@@ -33,22 +33,26 @@ var game = new Phaser.Game(config);
 var blue_trail;
 var red_trail;
 var arrow;
+var blue_score;
+var blue_score_text;
+var red_score;
+var red_score_text;
+var background;
     
 function preload() {
 
     this.load.image('background', 'assets/arena.png');
-    this.load.image('red', 'assets/tron.light.cycle.red.png');
-    this.load.image('blue', 'assets/tron.light.cycle.blue.png');
-    this.load.image('blue_trail', 'assets/blue_trail.png' );
-    this.load.image('red_trail', 'assets/red_trail.png' );
+    this.load.image('red', 'assets/tron.light.cycle.red.resized.png');
+    this.load.image('blue', 'assets/tron.light.cycle.blue.resized.png');
+    this.load.image('blue_trail-particle', 'assets/blue_trail.png' );
+    this.load.image('red_trail-particle', 'assets/red_trail.png' );
 
 }
 
 function create() {
     
     background = this.add.image ( 500, 500, 'background');
-    
-    //bitmapData
+    //  this.add.text(200, 100, 'Run Game!');
     
     //inputs
     keyJ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J);
@@ -56,48 +60,90 @@ function create() {
     keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     
-    sprite1 = this.physics.add.sprite(800, 300, 'red');
-    sprite1.setDisplaySize(30, 30);
+    sprite1 = this.physics.add.sprite(700, 300, 'red');
+    sprite1.setDisplaySize(30, 15);
     sprite1.angle = -180;
     this.physics.velocityFromAngle(sprite1.angle, 100, sprite1.body.velocity);
     sprite1.setCollideWorldBounds(true);
     
-    sprite2 = this.physics.add.sprite(0, 300, 'blue');
-    sprite2.setDisplaySize(30, 30);
+    sprite2 = this.physics.add.sprite(100, 300, 'blue');
+    sprite2.setDisplaySize(30, 15);
     this.physics.velocityFromAngle(sprite2.angle, 100, sprite2.body.velocity);
     sprite2.setCollideWorldBounds(true);
 
     this.physics.add.collider(sprite1, sprite2);
     
+    //testing
+    var redColl = {
+        contains: function (x, y)
+        {
+            //hi();
+            return sprite1.body.hitTest(x, y);
+        }
+    };
+    
+    var blueColl = {
+        contains: function (x, y)
+        {
+            //hi();
+            return sprite2.body.hitTest(x, y);
+        }
+    };
+    
+    //score
+    blue_score = 0;
+    blue_score_text = this.add.text(50, 50, blue_score);
+    red_score = 0;
+    red_score_text = this.add.text(50, 500, red_score);
+    
     //blue trail
-    blue_trail = this.add.particles('blue_trail').createEmitter({
+    blue_trail = this.add.particles('blue_trail-particle').createEmitter({
         x: sprite2.x,
         y: sprite2.y,
         scale: { start: 0.02, end: 0.02 },
         blendMode: 'ADD',
-        lifespan: 50000
+        maxParticles: 0,
+        lifespan: 50000,
+        deathZone: { type: 'onEnter', source: redColl }
+
     });
 
     //red trail
-    red_trail = this.add.particles('red_trail').createEmitter({
+    red_trail = this.add.particles('red_trail-particle').createEmitter({
         x: sprite1.x,
         y: sprite1.y,
         scale: { start: 0.02, end: 0.02 },
         blendMode: 'ADD',
-        lifespan: 50000
+        maxParticles: 0,
+        lifespan: 50000,
+        deathZone: { type: 'onEnter', source: blueColl }
     });
+    
+    //collisions
+    this.physics.add.collider(sprite1, sprite2, change, null, this);
+    
+
          
 }
 
 function update() {
     
+    //world bound check
+    if(sprite1.body.checkWorldBounds()) {
+        red_score++;
+        red_score_text.setText(red_score);
+    }
+    
     if (keyJ._justDown) {
+        //blue_score++;
+        blue_score_text.setText(blue_score);
         sprite1.angle -= 90
         this.physics.velocityFromAngle(sprite1.angle, 100, sprite1.body.velocity);
         keyJ._justDown = false;
         }
 
     if (keyL._justDown) {
+        //blue_score++
         sprite1.angle += 90
         this.physics.velocityFromAngle(sprite1.angle, 100, sprite1.body.velocity);
         keyL._justDown = false;
@@ -121,12 +167,22 @@ function update() {
     red_trail.setPosition(sprite1.x, sprite1.y);
 
 }
-    
-    
 
 function render() {
 
 }
+    
+function change() {
+
+
+}
+    
+function hi() {
+    blue_trail.killAll();
+    red_trail.killAll();
+}
+    
+
 
 </script>
 
