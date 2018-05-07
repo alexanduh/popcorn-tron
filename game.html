@@ -52,9 +52,7 @@ function preload() {
 function create() {
     
     background = this.add.image ( 500, 500, 'background');
-  //  this.add.text(200, 100, 'Run Game!');
-    
-    //bitmapData
+    //  this.add.text(200, 100, 'Run Game!');
     
     //inputs
     keyJ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J);
@@ -75,6 +73,23 @@ function create() {
 
     this.physics.add.collider(sprite1, sprite2);
     
+    //testing
+    var redColl = {
+        contains: function (x, y)
+        {
+            //hi();
+            return sprite1.body.hitTest(x, y);
+        }
+    };
+    
+    var blueColl = {
+        contains: function (x, y)
+        {
+            //hi();
+            return sprite2.body.hitTest(x, y);
+        }
+    };
+    
     //score
     blue_score = 0;
     blue_score_text = this.add.text(50, 50, blue_score);
@@ -88,7 +103,9 @@ function create() {
         scale: { start: 0.02, end: 0.02 },
         blendMode: 'ADD',
         maxParticles: 0,
-        lifespan: 50000
+        lifespan: 50000,
+        deathZone: { type: 'onEnter', source: redColl }
+
     });
 
     //red trail
@@ -98,11 +115,14 @@ function create() {
         scale: { start: 0.02, end: 0.02 },
         blendMode: 'ADD',
         maxParticles: 0,
-        lifespan: 50000
+        lifespan: 50000,
+        deathZone: { type: 'onEnter', source: blueColl }
     });
     
     //collisions
     this.physics.add.collider(sprite1, sprite2, change, null, this);
+    
+
          
 }
 
@@ -115,7 +135,7 @@ function update() {
     }*/
     
     if (keyJ._justDown) {
-        blue_score++;
+        //blue_score++;
         blue_score_text.setText(blue_score);
         sprite1.angle -= 90
         this.physics.velocityFromAngle(sprite1.angle, 100, sprite1.body.velocity);
@@ -123,7 +143,7 @@ function update() {
         }
 
     if (keyL._justDown) {
-        blue_score++
+        //blue_score++
         sprite1.angle += 90
         this.physics.velocityFromAngle(sprite1.angle, 100, sprite1.body.velocity);
         keyL._justDown = false;
@@ -155,6 +175,11 @@ function render() {
 function change() {
 
 
+}
+    
+function hi() {
+    blue_trail.killAll();
+    red_trail.killAll();
 }
     
 
