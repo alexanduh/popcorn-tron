@@ -122,6 +122,9 @@ function create() {
     //collisions
     this.physics.add.collider(sprite1, sprite2, change, null, this);
     
+    //timedEvent
+/*    timedEvent = this.time.addEvent({ delay: 1, callback: onEvent, callbackScope: this, repeat: 9 });*/
+    
 
          
 }
@@ -130,8 +133,10 @@ function update() {
     
     //world bound check
     if(sprite1.body.checkWorldBounds()) {
-        red_score++;
-        red_score_text.setText(red_score);
+        /*red_score++;
+        red_score_text.setText(red_score);*/
+        //resetState();
+        
     }
     
     if (keyJ._justDown) {
@@ -181,6 +186,21 @@ function hi() {
     blue_trail.killAll();
     red_trail.killAll();
 }
+    
+function resetState() {
+    blue_trail.killAll();
+    red_trail.killAll();
+    sprite1.x = 700;
+    sprite1.y = 300;
+    sprite2.x = 100;
+    sprite2.y = 300;
+}
+    
+/*function holdState() {
+    sprite1.angle = -180;
+    sprite2.angle = 90;
+    
+}*/
     
 
 
