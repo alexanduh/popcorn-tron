@@ -128,11 +128,11 @@ function create() {
 
 function update() {
     
-/*    //world bound check
-    if(sprite1) {
+    //world bound check
+    if(sprite1.body.checkWorldBounds()) {
         red_score++;
         red_score_text.setText(red_score);
-    }*/
+    }
     
     if (keyJ._justDown) {
         //blue_score++;
