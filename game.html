@@ -37,6 +37,7 @@ var blue_score;
 var blue_score_text;
 var red_score;
 var red_score_text;
+var background;
     
 function preload() {
 
@@ -51,7 +52,7 @@ function preload() {
 function create() {
     
     background = this.add.image ( 500, 500, 'background');
-    this.add.text(200, 100, 'Run Game!');
+  //  this.add.text(200, 100, 'Run Game!');
     
     //bitmapData
     
@@ -107,11 +108,11 @@ function create() {
 
 function update() {
     
-    //world bound check
-    if(sprite1.checkWorldBounds()) {
+/*    //world bound check
+    if(sprite1) {
         red_score++;
         red_score_text.setText(red_score);
-    }
+    }*/
     
     if (keyJ._justDown) {
         blue_score++;
