@@ -103,7 +103,8 @@ function create() {
         blendMode: 'ADD',
         maxParticles: 0,
         lifespan: 50000,
-        deathZone: { type: 'onEnter', source: redColl }
+        deathCallback: blueDeath,
+        deathZone: { type: 'onEnter', source: redColl/*, source: blueColl*/ }
 
     });
 
@@ -115,7 +116,8 @@ function create() {
         blendMode: 'ADD',
         maxParticles: 0,
         lifespan: 50000,
-        deathZone: { type: 'onEnter', source: blueColl }
+        deathCallback: redDeath,
+        deathZone: { type: 'onEnter', source: blueColl/*, source: redColl*/ }
     });
     
     //collisions
@@ -129,29 +131,25 @@ function create() {
 }
 
 function update() {
-    
-    //particle death
-    //blue_trail.onParticleDeath(alert('it died.'));
-    
     //world bound check
     if(sprite1.body.checkWorldBounds()) {
-        red_score++;
-        red_score_text.setText(red_score);
+/*      red_score++;
+        red_score_text.setText(red_score);*/
         //resetState();
         
     }
     
     if (keyJ._justDown) {
-        blue_score++;
-        blue_score_text.setText(blue_score);
+/*        blue_score++;
+        blue_score_text.setText(blue_score);*/
         sprite1.angle -= 90
         this.physics.velocityFromAngle(sprite1.angle, 100, sprite1.body.velocity);
         keyJ._justDown = false;
         }
 
     if (keyL._justDown) {
-        red_score++
-        red_score_text.setText(red_score);
+ /*       red_score++
+        red_score_text.setText(red_score);*/
         sprite1.angle += 90
         this.physics.velocityFromAngle(sprite1.angle, 100, sprite1.body.velocity);
         keyL._justDown = false;
@@ -171,8 +169,8 @@ function update() {
         }
     
     //trail update
-    blue_trail.setPosition(sprite2.x, sprite2.y);
-    red_trail.setPosition(sprite1.x, sprite1.y);
+    blue_trail.setPosition(sprite2.x/* - 10*/, sprite2.y/* - 10*/);
+    red_trail.setPosition(sprite1.x/* - 10*/, sprite1.y/* - 10*/);
 
 }
 
@@ -181,8 +179,16 @@ function render() {
 }
     
     
-function hi() {
-    this.add.text(200, 100, 'alert');
+function blueDeath() {
+    resetState();
+    blue_score++;
+    blue_score_text.setText(blue_score);
+}
+
+function redDeath() {
+    resetState();
+    red_score++
+    red_score_text.setText(red_score);
 }
     
 function resetState() {
