@@ -73,7 +73,6 @@ function create() {
 
     this.physics.add.collider(sprite1, sprite2);
     
-    //testing
     var redColl = {
         contains: function (x, y)
         {
@@ -120,7 +119,7 @@ function create() {
     });
     
     //collisions
-    this.physics.add.collider(sprite1, sprite2, change, null, this);
+    //this.physics.add.collider(sprite1, sprite2, change, null, this);
     
     //timedEvent
 /*    timedEvent = this.time.addEvent({ delay: 1, callback: onEvent, callbackScope: this, repeat: 9 });*/
@@ -131,16 +130,19 @@ function create() {
 
 function update() {
     
+    //particle death
+    //blue_trail.onParticleDeath(alert('it died.'));
+    
     //world bound check
     if(sprite1.body.checkWorldBounds()) {
-        /*red_score++;
-        red_score_text.setText(red_score);*/
+        red_score++;
+        red_score_text.setText(red_score);
         //resetState();
         
     }
     
     if (keyJ._justDown) {
-        //blue_score++;
+        blue_score++;
         blue_score_text.setText(blue_score);
         sprite1.angle -= 90
         this.physics.velocityFromAngle(sprite1.angle, 100, sprite1.body.velocity);
@@ -148,7 +150,8 @@ function update() {
         }
 
     if (keyL._justDown) {
-        //blue_score++
+        red_score++
+        red_score_text.setText(red_score);
         sprite1.angle += 90
         this.physics.velocityFromAngle(sprite1.angle, 100, sprite1.body.velocity);
         keyL._justDown = false;
@@ -177,14 +180,9 @@ function render() {
 
 }
     
-function change() {
-
-
-}
     
 function hi() {
-    blue_trail.killAll();
-    red_trail.killAll();
+    this.add.text(200, 100, 'alert');
 }
     
 function resetState() {
